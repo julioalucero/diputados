@@ -35,6 +35,7 @@ class Expediente < ActiveRecord::Base
   # estado_id y que de otra forma se confunde. Asi hago que funcionen los dos en
   # simultaneo.
 
+  belongs_to :estado, :class_name => Status, :foreign_key => :estado
   def estado=(estado)
     if estado.is_a? Fixnum
       write_attribute(:estado, estado)
