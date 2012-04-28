@@ -18,7 +18,7 @@ group :assets do
   gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
 end
-
+gem "sprockets"#, :git => "git://github.com/sstephenson/sprockets.git"
 gem 'activeadmin'
 
 gem 'jquery-rails'
@@ -32,9 +32,8 @@ group :development, :test do
 end
 
 group :migrations do
-  gem 'dbf', '>= 1.7.7', '< 2.0'
+  gem 'dbf', :git=>'https://github.com/eloyesp/dbf.git'
   gem 'seed-fu'
 end
 
 gem 'prawn', :git => "git://github.com/sandal/prawn.git", :tag => '0.10.2', :submodules => true
-
