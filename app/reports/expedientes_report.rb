@@ -57,7 +57,7 @@ class ExpedientesReport < Prawnbot::Report
 
     show_title "DETALLE DE EXPEDIENTE"
 
-    show_title "#{expediente.tipo_format} N #{expediente.numero} (#{expediente.pasada})"
+    show_title "#{clave)"
 
     myform([
       "<b>Autor</b> #{expediente.autor}",
@@ -115,4 +115,3 @@ class ExpedientesReport < Prawnbot::Report
     render
   end
 end
-
