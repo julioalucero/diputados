@@ -4,5 +4,10 @@ class Asunto < ActiveRecord::Base
 
   # @return [Expediente]
   belongs_to :expediente
-end
 
+  def comisiones
+    Comision.where("codigo in (?,?,?,?,?,?
+    )",comision1,comision2,comision3,comision4,comision5,comision6)
+  end
+
+end
