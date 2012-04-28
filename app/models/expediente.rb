@@ -33,8 +33,19 @@ class Expediente < ActiveRecord::Base
     end
   end
 
+  def entrada
+    "#{fechaentr} #{hora} por: #{tipoentr}"
+  end
+
+  def periodo
+    "#{tipoperiod} Numero: #{numperiodo}"
+  end
+
+  def clave
+    "#{numero} #{letra} #{tipo_format} (#{pasada})"
+  end
+
   def tipo_format
     "#{tipo} #{ley if tipo == "Ley"}"
   end
 end
-
