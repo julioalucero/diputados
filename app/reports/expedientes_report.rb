@@ -55,13 +55,15 @@ class ExpedientesReport < Prawnbot::Report
   def show(expediente)
     body
 
+#   Detalles generales
+#   TODO: falta agregar prefer.
     show_title "DETALLE DE EXPEDIENTE"
 
-    show_title "#{clave)"
+    show_title "#{expediente.clave}"
 
     myform([
       "<b>Autor</b> #{expediente.autor}",
-      "<b>Tema</b> #{expediente.tema}",
+      "<b>Tema</b> #{expediente.tema.try(:name)}",
       "<b>Estado</b> #{expediente.estado}"])
 
     myform(["Descripcion"])
@@ -72,40 +74,43 @@ class ExpedientesReport < Prawnbot::Report
 
     mybox("Entrada: #{expediente.fechaentr}, Por: #{expediente.tipoentr} a las #{expediente.hora} en el periodo #{expediente.tipoperiod} N #{expediente.numperiodo}")
 
-    myform(["<b>COMISIONES ASIGNADAS</b> (desde As. Entrados)"])
+    expediente.finals.each do |final|
+      mybox(final.descripcion)
+    end
 
-    header_row = [ %w[  Comision
-                      Entrada
-                      Tratamses
-                      Salida
-                      Dictmay
-                      Dictmin1
-                      Dictmin2
-                      Fechamay
-                      Fechamin1
-                      Fechamin2
-                      V
-                      ] ]
-    valores_tabla = expediente.estados.all.map do |r|
-      data_row = %W[  #{r.comision}
-                      #{r.fechaent}
-                      #{r.tratamses}
-                      #{r.fechasal}
-                      #{r.dictmay}
-                      #{r.dictmin1}
-                      #{r.dictmin2}
-                      #{r.fechamay}
-                      #{r.fechamin1}
-                      #{r.fechamin2}
-                      #{r.v} ]
+#   Asuntos entrados
+
+    expediente.asuntos.each do |asunto|
+      myform(["<b>AS.entrado:</b> #{asunto.asuntoentr} <b>Reunion:</b> #{asunto.numreunion} <b>Sesion:</b> #{asunto.numsesion}"])
+
+      myform(["<b>COMISIONES ASIGNADAS</b> (desde As. Entrados)"])
+
+      valores_tabla = asunto.comisiones.map do |comision|
+        data_row = %W[#{comision.try(:name)}]
+      end
+      mytable (valores_tabla) if valores_tabla
+
+    end
+
+    myform(["<b>Pase por comisiones</b>"])
+
+    expediente.estados.each do |estado|
+
+      myform(["<b>#{estado.comision.try(:name)}</b>",
+              "<b>Entrada</b> #{estado.fechaent}"])
+      estado.dictamenes.map do |dictamen|
+        mybox("#{dictamen[:tipo]} #{dictamen[:fecha]} #{dictamen[:dictamen]}]")
       end
 
-    mytable (header_row + valores_tabla)
+      myform(["<b>Salida:</b> #{estado.fechasal}"])
+    end
 
     move_down 10
 
     myform ["<b>TRATAMIENTO EN SESION</b>"]
 
+#  Sesion.
+#  TODO:faltan datos aca. ver en la vista.
     if expediente.sesion
       mybox("Tratamiento #{expediente.sesion.tratamient} Resultado de la votacion: #{expediente.sesion.resuvotac} Fecha de sesion #{expediente.sesion.fechases}")
     else
