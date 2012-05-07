@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428182553) do
+ActiveRecord::Schema.define(:version => 20120503020355) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20120428182553) do
   add_index "asuntos", ["numero"], :name => "index_asuntos_on_numero"
 
   create_table "comisions", :force => true do |t|
-    t.integer  "codigo"
     t.string   "nombre"
     t.integer  "pte"
     t.integer  "vice"
@@ -123,7 +122,7 @@ ActiveRecord::Schema.define(:version => 20120428182553) do
     t.integer  "tipo"
     t.integer  "pasada"
     t.date     "fechaent"
-    t.integer  "comision"
+    t.integer  "comision_id"
     t.date     "tratamses"
     t.date     "fechasal"
     t.text     "dictmay"
@@ -138,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20120428182553) do
     t.integer  "expediente_id"
   end
 
+  add_index "estados", ["comision_id"], :name => "index_estados_on_comision_id"
   add_index "estados", ["expediente_id"], :name => "index_estados_on_expediente_id"
   add_index "estados", ["numero"], :name => "index_estados_on_numero"
 

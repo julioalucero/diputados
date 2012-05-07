@@ -1,7 +1,6 @@
 class CreateComisions < ActiveRecord::Migration
   def change
     create_table :comisions do |t|
-      t.integer :codigo
       t.string :nombre
       t.integer :pte
       t.integer :vice
@@ -19,3 +18,4 @@ class CreateComisions < ActiveRecord::Migration
     end
   end
 end
+

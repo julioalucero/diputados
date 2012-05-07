@@ -5,9 +5,10 @@ class Asunto < ActiveRecord::Base
   # @return [Expediente]
   belongs_to :expediente
 
+  # @return [ActiveRecord::Relation] Comisiones asignadas al expediente.
   def comisiones
-    Comision.where("codigo in (?,?,?,?,?,?
-    )",comision1,comision2,comision3,comision4,comision5,comision6)
+    Comision.where :id => [comision1, comision2, comision3, comision4,
+                           comision5, comision6]
   end
 
 end

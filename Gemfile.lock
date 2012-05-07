@@ -9,9 +9,9 @@ GIT
 
 GIT
   remote: https://github.com/eloyesp/dbf.git
-  revision: 8037ec4f16f06a0a030556df09e1a04d552590d8
+  revision: baaa7a195a19934c7fbf27e7fe141b8f0e61925d
   specs:
-    dbf (1.7.5)
+    dbf (1.7.7)
 
 GEM
   remote: https://rubygems.org/

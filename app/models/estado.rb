@@ -1,9 +1,9 @@
 class Estado < ActiveRecord::Base
 
-  LEGACY_CONSTRAINTS = [:numero, :letra, :pasada, :tipo, :fechaent, :comision]
+  LEGACY_CONSTRAINTS = [:numero, :letra, :pasada, :tipo, :fechaent, :comision_id]
 
   belongs_to :expediente
-  belongs_to :comision, :class_name => Comision, :foreign_key => :comision
+  belongs_to :comision
 
   # dictamenes arme un array con los hashes de los distintos tipo de resultados
   # que tubo como resultado en la comision.
