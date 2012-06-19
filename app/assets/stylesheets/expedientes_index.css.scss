@@ -2,7 +2,7 @@
 
 .index.admin_expedientes tr {
   td.html_descrip p {
-    @include transition("all 2s");
+    @include single-transition(all, 1s, ease, 0.6s);
     max-height: 2.6em;
     overflow: hidden;
     text-overflow: ellipsis;
