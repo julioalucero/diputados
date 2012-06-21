@@ -17,6 +17,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'therubyracer'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-ui-redmond'
 end
 
 gem 'activeadmin'
@@ -47,3 +48,4 @@ group :deployment do
 end
 
 gem 'whenever', :require => false
+
