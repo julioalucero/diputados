@@ -15,6 +15,17 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+module Legacy::MigrationTestHelpers
+  def migrate_record(attributes)
+    record = Object.new
+    record.attributes = attributes
+    prepare_record(record)
+    migrate_record(record)
+  end
+end
+
+Legacy::Migration.include Legacy::MigrationTestHelpers
+
 class ActionController::TestCase
   include Devise::TestHelpers
 end
