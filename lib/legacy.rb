@@ -2,6 +2,7 @@
 require 'legacy/migration'
 require 'legacy/comision_migration'
 require 'legacy/estado_migration'
+require 'legacy/status_migration'
 require 'legacy/tables'
 
 module Legacy
