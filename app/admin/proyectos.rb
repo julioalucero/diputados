@@ -17,7 +17,7 @@ ActiveAdmin.register Proyecto do
       super(options) do |format|
         block.call(format) if block
         format.pdf {
-          report = ExpedientesReport.new.listado @proyectos
+          report = ExpedientesReport.new.listado @proyectos, params
           send_file report, :type => "application/vnd.oasis.opendocument.text"
         }
       end

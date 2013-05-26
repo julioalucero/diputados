@@ -1,28 +1,31 @@
 class ExpedientesReport
-  def listado(expedientes)
 
-    report = ODFReport::Report.new(Rails.root.join("app/reports/expedientes.odt")) do |r|
-      r.add_section "EXPEDIENTES", expedientes do |s|
-        s.add_field(:clave) { |item| item.clave.to_s }
-        s.add_field(:entrada) { |item| item.entrada.to_s }
-        s.add_field(:autor) { |item| item.autor.to_s }
-        s.add_field(:firmantes) { |item| item.firmantes.to_s }
-        s.add_field(:descripcion) { |item| item.descrip.to_s }
-        s.add_field(:estado) { |item| item.estado.to_s }
-        s.add_field(:tema) { |item| item.tema.to_s }
+  attr_accesible :sections, :file_path,
 
+  def report
+    ODFReport::Report.new(Rails.root.join(file_path)) do |r|
+      sections.each do |section|
+        r.add_section section, expedientes do |s|
+          Expedientes::TO_REPORT.each do |attribute|
+            s.add_field(attribute) { |item| item[attribute].to_s }
+          end
+        end
       end
     end
+  end
 
-    report_file_name = report.generate
+  def listado proyectos, params
 
+    self.section = "EXPEDIENTES"
+    self.file_path = "app/reports/expedientes.odt"
+    report.generate
   end
 
   def detalle(params)
 
     @expediente = Expediente.find(params[:id])
 
-    report = ODFReport::Report.new(Rails.root.join("app/reports/expediente.odt")) do |r|
+    ODFReport::Report.new(Rails.root.join("app/reports/expediente.odt")) do |r|
 
       r.add_field(:clave,         @expediente.clave.to_s)
       r.add_field(:autor,         @expediente.autor.to_s)

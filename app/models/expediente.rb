@@ -7,11 +7,13 @@ class Expediente < ActiveRecord::Base
   # TODO Move everything that belong to proyect there.
 
   LEGACY_CONSTRAINTS = [:numero, :letra, :pasada, :tipo]
+  TO_REPORT_LIST = [ :clave, :entrada, :autor, :firmantes, :descripcion, :estado, :tema ]
+  TO_REPORT_DETAIL = [ :clave, :entrada, :autor, :firmantes, :descripcion, :estado, :tema, :fechaentr, :tipoentr, :hora, :tipoperiod, :numperiodo ]
 
   has_and_belongs_to_many :tags, :uniq => true
 
   attr_reader :tags_tokens
-  
+
   def tags_tokens=(ids)
     self.tag_ids = ids.split(",")
   end
@@ -130,5 +132,10 @@ class Expediente < ActiveRecord::Base
   def tags_list
     tags.pluck :name
   end
+
+  def descripcion
+    descrip
+  end
+
 
 end
