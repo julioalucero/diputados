@@ -16,7 +16,7 @@ class ExpedientesReport
 
   def listado proyectos, params
 
-    self.section = "EXPEDIENTES"
+    self.sections = ["EXPEDIENTES"]
     self.file_path = "app/reports/expedientes.odt"
     report.generate
   end
@@ -24,6 +24,9 @@ class ExpedientesReport
   def detalle(params)
 
     @expediente = Expediente.find(params[:id])
+    self.sections = ["COMISION", ]
+    self.file_path = "app/reports/expedientes.odt"
+
 
     ODFReport::Report.new(Rails.root.join("app/reports/expediente.odt")) do |r|
 
