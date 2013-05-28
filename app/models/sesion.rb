@@ -6,6 +6,7 @@ class Sesion < ActiveRecord::Base
 
   # @return [Expediente]
   belongs_to :expediente
+  delegate :tratamiento, :resultado, :fechases, :periodo, :to => :expediente
 
   Resultado = {
     1 => "Aprobado sin modificaciones",
