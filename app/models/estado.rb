@@ -19,5 +19,12 @@ class Estado < ActiveRecord::Base
     )].delete_if {|x| x == nil}
   end
 
+  def entrada
+    fechaent
+  end
+
+  def salida
+    fechasal
+  end
 end
 
