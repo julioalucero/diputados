@@ -1,6 +1,6 @@
 class ExpedientesReport
-  EXPEDIENTE = [ :clave, :autor, :entrada,  :firmantes, :descripcion, :estado, :tema ]
-  DETAILED_EXPEDIENTE =  [:clave, :autor, :entrada, :tema, :estado, :descripcion, :firmantes, :tipoentr, :hora, :tipoperiod, :numperiodo, :tratamiento, :resultado, :fechases, :periodo]
+  EXPEDIENTE_ATTRIBUTES = [ :clave, :autor, :entrada,  :firmantes, :descripcion, :estado, :tema ]
+  EXPEDIENTE_DETAILED_ATTRIBUTES =  [:clave, :autor, :entrada, :tema, :estado, :descripcion, :firmantes, :tipoentr, :hora, :tipoperiod, :numperiodo, :tratamiento, :resultado, :fechases, :periodo]
   COMISION = [:nombre, :entrada, :salida]
   DICTAMEN = [:tipo, :fecha, :dictamen]
 
@@ -11,7 +11,8 @@ class ExpedientesReport
     ODFReport::Report.new(Rails.root.join("app/reports/expedientes.odt")) do |r|
     #ODFReport::Report.new(Rails.root.join(self.file_template_path)) do |r|
       r.add_section "EXPEDIENTES", expedientes do |s|
-        EXPEDIENTE.each do |attribute|
+        EXPEDIENTE_ATTRIBUTES.each do |attribute|
+          binding.pry
           s.add_field(attribute) { |item| item[attribute].to_s }
         end
       end
@@ -23,7 +24,7 @@ class ExpedientesReport
     @expediente = Expediente.find(params[:id])
     #ODFReport::Report.new(Rails.root.join(self.file_template_path)) do |r|
     ODFReport::Report.new(Rails.root.join("app/reports/expediente.odt")) do |r|
-      DETAILED_EXPEDIENTE.each do |attribute|
+      EXPEDIENTE_DETAILED_ATTRIBUTES.each do |attribute|
         r.add_field(attribute, @expediente[attribute].to_s)
       end
       r.add_section "COMISION", @expediente.estados do |s|
